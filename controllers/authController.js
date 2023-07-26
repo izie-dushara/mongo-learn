@@ -41,15 +41,15 @@ const handleLogin = async (req, res) => {
     );
 
     // Save refresh token with user in database - for logout process
-   foundUser.refreshToken = refreshToken;
-   const result = await foundUser.save();
-   console.log(result);
+    foundUser.refreshToken = refreshToken;
+    const result = await foundUser.save();
+    console.log(result);
 
     // Store the tokens in memory and as cookies - httpOnly
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
-      /*secure: true,*/
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     });
     res.json({ accessToken });
